@@ -3,18 +3,41 @@ import { motion } from "framer-motion";
 import { HiOutlineMail, HiOutlineArrowRight } from "react-icons/hi";
 import { brand } from "../data/content";
 
+type Status = "idle" | "sending" | "sent" | "error";
+
 export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Project inquiry from ${name || "your website"}`);
-    const body = encodeURIComponent(
-      `${message}\n\n—\n${name}\n${email}`
-    );
-    window.location.href = `mailto:${brand.email}?subject=${subject}&body=${body}`;
+    setStatus("sending");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+          subject: `Project inquiry from ${name || "your website"}`,
+          name,
+          email,
+          message,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus("sent");
+        setName("");
+        setEmail("");
+        setMessage("");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -85,11 +108,20 @@ export default function Contact() {
           </div>
           <button
             type="submit"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-fg font-semibold px-6 py-3.5 hover:opacity-90 transition-opacity"
+            disabled={status === "sending"}
+            className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-fg font-semibold px-6 py-3.5 hover:opacity-90 transition-opacity disabled:opacity-60"
           >
-            Send message
+            {status === "sending" ? "Sending..." : "Send message"}
             <HiOutlineArrowRight />
           </button>
+          {status === "sent" && (
+            <p className="text-sm text-accent">Thanks! Your message has been sent.</p>
+          )}
+          {status === "error" && (
+            <p className="text-sm text-red-500">
+              Something went wrong. Please email me directly instead.
+            </p>
+          )}
         </motion.form>
       </div>
     </section>
