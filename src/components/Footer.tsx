@@ -5,9 +5,7 @@ export default function Footer() {
     <footer className="border-t border-base py-12">
       <div className="mx-auto max-w-6xl px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-2 font-display font-semibold">
-          <span className="w-7 h-7 rounded-md bg-accent text-accent-fg grid place-items-center text-sm font-bold">
-            C
-          </span>
+          <img src="/brand/logo-mark-180.png" alt="" className="w-7 h-7 object-contain" />
           {brand.name}
         </div>
 

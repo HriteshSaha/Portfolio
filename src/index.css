@@ -12,6 +12,7 @@
 
   --color-mint: #7df9c1;
   --color-mint-dim: #3ecf8e;
+  --color-mint-deep: #047857;
   --color-coral: #ff6b57;
   --color-coral-dim: #e5503c;
 }
@@ -23,9 +24,9 @@
   --fg: var(--color-ink);
   --fg-muted: #52586b;
   --border: #e1e1da;
-  --accent: var(--color-mint-dim);
-  --accent-fg: #04150d;
-  --pop: var(--color-coral);
+  --accent: var(--color-mint-deep);
+  --accent-fg: #ffffff;
+  --pop: var(--color-coral-dim);
 }
 
 .dark {

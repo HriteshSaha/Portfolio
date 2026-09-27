@@ -25,10 +25,8 @@ export default function Navbar({ theme, onToggleTheme }: Props) {
       }`}
     >
       <nav className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-2 font-display font-semibold text-lg tracking-tight">
-          <span className="w-8 h-8 rounded-lg bg-accent text-accent-fg grid place-items-center font-bold">
-            C
-          </span>
+        <a href="#top" className="flex items-center gap-2.5 font-display font-semibold text-lg tracking-tight">
+          <img src="/brand/logo-mark-180.png" alt="" className="w-8 h-8 object-contain" />
           {brand.name}
         </a>
 
