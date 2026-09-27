@@ -12,7 +12,7 @@ export default function Architecture() {
             How it's put together.
           </h2>
           <p className="text-muted mt-4 text-lg">
-            The same layered architecture underneath every project — sized up
+            The same layered architecture underneath every project sized up
             or down to fit the product.
           </p>
         </div>

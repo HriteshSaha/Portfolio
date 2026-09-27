@@ -27,7 +27,7 @@ export default function Contact() {
           </h2>
           <p className="text-muted text-lg max-w-md mb-10">
             Whether it's a new website, a full product build, or an
-            integration into something existing — tell me what you're
+            integration into something existing tell me what you're
             trying to do and I'll tell you how to get there.
           </p>
 

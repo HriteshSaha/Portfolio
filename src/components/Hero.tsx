@@ -62,7 +62,7 @@ export default function Hero() {
             className="mt-8 max-w-xl text-lg text-muted"
           >
             {brand.name} designs and builds websites, web applications, SaaS
-            platforms and AI-enabled tools — end to end, from database to
+            platforms and AI-enabled tools end to end, from database to
             deployment.
           </motion.p>
 

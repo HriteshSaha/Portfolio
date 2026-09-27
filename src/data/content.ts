@@ -18,7 +18,7 @@ export const services = [
     index: "01",
     title: "Websites",
     description:
-      "Corporate sites, landing pages, portfolios and SEO-friendly, CMS-backed builds — fast, responsive, and built to convert.",
+      "Corporate sites, landing pages, portfolios and SEO-friendly, CMS-backed builds fast, responsive, and built to convert.",
     tags: ["Marketing sites", "SEO", "CMS", "E-commerce fronts"],
   },
   {
@@ -39,14 +39,14 @@ export const services = [
     index: "04",
     title: "E-Commerce",
     description:
-      "Custom storefronts or Shopify / WooCommerce builds — catalogs, checkout, payments, inventory and shipping integrations.",
+      "Custom storefronts or Shopify / WooCommerce builds catalogs, checkout, payments, inventory and shipping integrations.",
     tags: ["Custom storefronts", "Shopify", "WooCommerce"],
   },
   {
     index: "05",
     title: "APIs & Integrations",
     description:
-      "REST APIs, webhooks and third-party integrations — payments, messaging, accounting, CRM and logistics providers.",
+      "REST APIs, webhooks and third-party integrations payments, messaging, accounting, CRM and logistics providers.",
     tags: ["REST APIs", "Webhooks", "Payment gateways"],
   },
   {
@@ -122,9 +122,9 @@ export const caseStudies: CaseStudy[] = [
     url: "https://gigmapro.onrender.com/",
     tagline: "A freelance marketplace connecting clients with freelancers.",
     problem:
-      "Hiring freelance talent today is scattered across DMs, spreadsheets, and generic job boards that aren't built for bidding-based work — clients struggle to compare proposals side-by-side, and freelancers lack a structured way to discover and pitch for relevant projects.",
+      "Hiring freelance talent today is scattered across DMs, spreadsheets, and generic job boards that aren't built for bidding-based work clients struggle to compare proposals side-by-side, and freelancers lack a structured way to discover and pitch for relevant projects.",
     solution:
-      "GigmaPro gives clients a dedicated space to post projects with budgets and required skills, lets freelancers browse and bid with a quotation and delivery timeline, and gives clients a clear comparison view to assign the right freelancer and move straight into a contract — all in one workflow instead of piecing it together across tools.",
+      "GigmaPro gives clients a dedicated space to post projects with budgets and required skills, lets freelancers browse and bid with a quotation and delivery timeline, and gives clients a clear comparison view to assign the right freelancer and move straight into a contract all in one workflow instead of piecing it together across tools.",
     tags: ["React", "Node.js", "MySQL", "Bidding workflow", "Auth"],
     images: [
       { kind: "screenshot", src: "/projects/gigmapro/home.png", label: "Landing page" },
@@ -202,7 +202,7 @@ export const process = [
   {
     step: "03",
     title: "Build",
-    description: "Ship in small, working increments — frontend, backend and integrations in parallel.",
+    description: "Ship in small, working increments frontend, backend and integrations in parallel.",
   },
   {
     step: "04",

@@ -12,7 +12,7 @@ export default function TechStack() {
           </h2>
           <p className="text-muted mt-4 text-lg">
             A modern, TypeScript-first stack for building and running real
-            products — not just prototypes.
+            products not just prototypes.
           </p>
         </div>
 

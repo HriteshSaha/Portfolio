@@ -167,7 +167,7 @@ export default function Projects() {
             Recent projects.
           </h2>
           <p className="text-muted mt-4 text-lg">
-            GigmaPro is a real, live product. The rest are placeholders —
+            GigmaPro is a real, live product. The rest are placeholders
             swap in real case studies as they come in.
           </p>
         </div>
