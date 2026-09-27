@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { HiOutlineMail, HiOutlineArrowRight } from "react-icons/hi";
+import { AnimatePresence, motion } from "framer-motion";
+import { HiOutlineMail, HiOutlineArrowRight, HiOutlineCheckCircle, HiOutlineX } from "react-icons/hi";
 import { brand } from "../data/content";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -114,9 +114,6 @@ export default function Contact() {
             {status === "sending" ? "Sending..." : "Send message"}
             <HiOutlineArrowRight />
           </button>
-          {status === "sent" && (
-            <p className="text-sm text-accent">Thanks! Your message has been sent.</p>
-          )}
           {status === "error" && (
             <p className="text-sm text-red-500">
               Something went wrong. Please email me directly instead.
@@ -124,6 +121,49 @@ export default function Contact() {
           )}
         </motion.form>
       </div>
+
+      <AnimatePresence>
+        {status === "sent" && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-6"
+            onClick={() => setStatus("idle")}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 16, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 8, scale: 0.97 }}
+              transition={{ duration: 0.25 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-md rounded-2xl border border-base bg-soft p-8 text-center"
+            >
+              <button
+                onClick={() => setStatus("idle")}
+                aria-label="Close"
+                className="absolute top-4 right-4 text-muted hover:text-fg transition-colors"
+              >
+                <HiOutlineX size={20} />
+              </button>
+              <HiOutlineCheckCircle size={48} className="mx-auto mb-4 text-accent" />
+              <h3 className="font-display font-semibold text-2xl mb-3">
+                Message received
+              </h3>
+              <p className="text-muted">
+                Thank you for reaching out. I've received your message and will
+                get back to you within 30–40 minutes.
+              </p>
+              <button
+                onClick={() => setStatus("idle")}
+                className="mt-6 inline-flex items-center justify-center rounded-full bg-accent text-accent-fg font-semibold px-6 py-3 hover:opacity-90 transition-opacity"
+              >
+                Close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
