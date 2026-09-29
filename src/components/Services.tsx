@@ -1,14 +1,21 @@
 import { motion } from "framer-motion";
 import { services } from "../data/content";
 
+// Rotating chip highlight variations so tag lists don't read as one flat row.
+const chipVariants = [
+  "border-accent/40 text-accent bg-accent/10",
+  "border-pop/40 text-pop bg-pop/10",
+  "border-base text-muted",
+];
+
 export default function Services() {
   return (
     <section id="services" className="py-28 border-t border-base">
       <div className="mx-auto max-w-6xl px-6">
         <div className="max-w-2xl mb-16">
-          <p className="font-mono text-sm text-accent mb-3">{"// "}Services</p>
+          <p className="font-mono text-sm text-accent mb-3">{"// "}What we do</p>
           <h2 className="font-display font-semibold text-4xl md:text-5xl tracking-tight">
-            Ways I can help you build.
+            Ways we can help you build.
           </h2>
         </div>
 
@@ -28,10 +35,12 @@ export default function Services() {
               </h3>
               <p className="text-muted leading-relaxed mb-5">{service.description}</p>
               <div className="flex flex-wrap gap-2">
-                {service.tags.map((tag) => (
+                {service.tags.map((tag, i) => (
                   <span
                     key={tag}
-                    className="text-xs font-medium px-3 py-1 rounded-full border border-base text-muted"
+                    className={`text-xs font-medium px-3 py-1 rounded-full border ${
+                      chipVariants[i % chipVariants.length]
+                    }`}
                   >
                     {tag}
                   </span>

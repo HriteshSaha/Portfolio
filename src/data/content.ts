@@ -6,11 +6,11 @@ export const brand = {
 };
 
 export const nav = [
-  { label: "Services", href: "#services" },
-  { label: "Stack", href: "#stack" },
-  { label: "Work", href: "#work" },
-  { label: "Process", href: "#process" },
-  { label: "Contact", href: "#contact" },
+  { label: "What we do", href: "services" },
+  { label: "Tools we use", href: "stack" },
+  { label: "Our work", href: "work" },
+  { label: "How we work", href: "process" },
+  { label: "Contact us", href: "contact" },
 ];
 
 export const services = [
@@ -18,78 +18,78 @@ export const services = [
     index: "01",
     title: "Websites",
     description:
-      "Corporate sites, landing pages, portfolios and SEO-friendly, CMS-backed builds fast, responsive, and built to convert.",
-    tags: ["Marketing sites", "SEO", "CMS", "E-commerce fronts"],
+      "Business websites, landing pages, and portfolios that look great, load fast, and help you get more customers.",
+    tags: ["Business websites", "Landing pages", "Portfolios", "Online stores"],
   },
   {
     index: "02",
     title: "Web Applications",
     description:
-      "Custom CRM, ERP, HR, inventory, ticketing and booking systems with roles, permissions, workflows and admin interfaces.",
-    tags: ["CRM / ERP", "Booking & ticketing", "Internal tools"],
+      "Custom online tools to manage customers, staff, inventory, bookings, and support tickets — with secure logins and easy-to-use dashboards.",
+    tags: ["Customer management", "Booking systems", "Staff tools"],
   },
   {
     index: "03",
     title: "SaaS Products",
     description:
-      "From MVP to production: multi-tenant auth, subscriptions & billing, org/team management, and usage tracking.",
-    tags: ["Multi-tenant", "Billing", "Admin panels"],
+      "Subscription-based software products with user accounts, payments, team management, and usage tracking — ready to launch and grow.",
+    tags: ["Subscriptions", "Payments", "Admin panels"],
   },
   {
     index: "04",
     title: "E-Commerce",
     description:
-      "Custom storefronts or Shopify / WooCommerce builds catalogs, checkout, payments, inventory and shipping integrations.",
+      "Online stores with product listings, payments, inventory, and shipping — custom-built or on Shopify and WooCommerce.",
     tags: ["Custom storefronts", "Shopify", "WooCommerce"],
   },
   {
     index: "05",
-    title: "APIs & Integrations",
+    title: "Connections & Integrations",
     description:
-      "REST APIs, webhooks and third-party integrations payments, messaging, accounting, CRM and logistics providers.",
-    tags: ["REST APIs", "Webhooks", "Payment gateways"],
+      "Connect your website or app to other services — payments, messaging, accounting, CRM, and shipping.",
+    tags: ["Payments", "Messaging", "Accounting"],
   },
   {
     index: "06",
-    title: "AI Integration",
+    title: "AI Tools",
     description:
-      "Chatbots, document processing, data extraction, AI-powered search and workflow automation wired into real business data.",
+      "AI chatbots, smart search, and automation that read documents and handle repetitive tasks — connected to your real business data.",
     tags: ["AI chatbots", "Document processing", "Automation"],
   },
   {
     index: "07",
-    title: "Dashboards & Admin",
+    title: "Dashboards & Reports",
     description:
-      "Analytics dashboards with charts, tables, filters, exports and role-based access, connected to existing backends.",
-    tags: ["Analytics", "Reporting", "Role management"],
+      "Reports and dashboards with charts, filters, and exports — so you can see how your business is doing and control who sees what.",
+    tags: ["Reports", "Charts", "Access control"],
   },
 ];
 
 export const stack = [
   {
-    group: "Frontend",
+    group: "What users see",
     items: ["React.js", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Responsive UI"],
   },
   {
-    group: "Backend",
+    group: "Behind the scenes",
     items: ["Node.js", "Fastify", "Express.js", "TypeScript", "REST APIs", "Webhooks", "Auth & authorization"],
   },
   {
-    group: "CMS & Website Platforms",
+    group: "Website platforms",
     items: ["WordPress", "Shopify", "WooCommerce", "Custom CMS development", "CMS customization & integrations"],
   },
   {
-    group: "Database & Infrastructure",
+    group: "Data & hosting",
     items: ["PostgreSQL", "MySQL", "MongoDB", "Docker", "Nginx", "VPS / Cloud"],
   },
 ];
 
 export const architecture = [
-  { label: "Frontend", detail: "React / Next.js / TypeScript" },
-  { label: "Backend", detail: "Node.js / Fastify / Express" },
-  { label: "API & Business Logic", detail: "Auth, workflows, integrations" },
-  { label: "Database", detail: "PostgreSQL / MySQL / MongoDB" },
-  { label: "Infrastructure", detail: "Docker / Nginx / Linux / Cloud" },
+  { label: "What users see", detail: "React / Next.js / TypeScript" },
+  { label: "Behind the scenes", detail: "Node.js / Fastify / Express" },
+  { label: "How it works", detail: "Auth, workflows, integrations" },
+  { label: "Where data is stored", detail: "PostgreSQL / MySQL / MongoDB" },
+  { label: "Where it runs", detail: "Docker / Nginx / Linux / Cloud" },
 ];
 
 export type MockupVariant = "dashboard" | "table" | "kanban" | "chat" | "cards";
@@ -125,7 +125,7 @@ export const caseStudies: CaseStudy[] = [
       "Hiring freelance talent today is scattered across DMs, spreadsheets, and generic job boards that aren't built for bidding-based work clients struggle to compare proposals side-by-side, and freelancers lack a structured way to discover and pitch for relevant projects.",
     solution:
       "GigmaPro gives clients a dedicated space to post projects with budgets and required skills, lets freelancers browse and bid with a quotation and delivery timeline, and gives clients a clear comparison view to assign the right freelancer and move straight into a contract all in one workflow instead of piecing it together across tools.",
-    tags: ["React", "Node.js", "MySQL", "Bidding workflow", "Auth"],
+    tags: ["React", "Node.js", "MySQL", "Bidding system", "Secure login"],
     images: [
       { kind: "screenshot", src: "/projects/gigmapro/home.png", label: "Landing page" },
       { kind: "screenshot", src: "/projects/gigmapro/login.png", label: "Login" },
@@ -192,21 +192,21 @@ export const process = [
   {
     step: "01",
     title: "Discovery",
-    description: "Understand the goal, users and constraints before writing a line of code.",
+    description: "We learn about your goals, your users, and what you need.",
   },
   {
     step: "02",
     title: "Architecture",
-    description: "Design the data model, API surface and infrastructure to fit the actual scale.",
+    description: "We plan the best way to build it — so it's simple, secure, and ready to grow.",
   },
   {
     step: "03",
     title: "Build",
-    description: "Ship in small, working increments frontend, backend and integrations in parallel.",
+    description: "We build in stages and show you progress along the way.",
   },
   {
     step: "04",
     title: "Deploy & Support",
-    description: "Production deployment, SSL, monitoring, and ongoing iteration after launch.",
+    description: "We launch your site, make sure it's secure, and keep improving it after it's live.",
   },
 ];

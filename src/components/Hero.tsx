@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { HiOutlineArrowRight } from "react-icons/hi";
-import { brand } from "../data/content";
 import CodeWindow from "./CodeWindow";
+import ScrollLink from "./ScrollLink";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -27,7 +27,7 @@ export default function Hero() {
             variants={fadeUp}
             className="font-mono text-sm text-accent mb-6 tracking-wide"
           >
-            {"// "}Full-stack web development
+            {"// "}Websites, apps &amp; AI tools
           </motion.p>
 
           <motion.h1
@@ -42,7 +42,7 @@ export default function Hero() {
             <span className="text-muted">platforms that</span>
             <br />
             <span className="relative inline-block">
-              actually ship.
+              actually go live.
               <svg
                 className="absolute left-0 -bottom-2 w-full"
                 viewBox="0 0 300 16"
@@ -61,9 +61,8 @@ export default function Hero() {
             variants={fadeUp}
             className="mt-8 max-w-xl text-lg text-muted"
           >
-            {brand.name} designs and builds websites, web applications, SaaS
-            platforms and AI-enabled tools end to end, from database to
-            deployment.
+            We design and build websites, web apps, online platforms, and AI
+            tools — from first idea to launch.
           </motion.p>
 
           <motion.div
@@ -73,19 +72,19 @@ export default function Hero() {
             variants={fadeUp}
             className="mt-10 flex flex-wrap items-center gap-4"
           >
-            <a
-              href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-fg text-base px-7 py-3.5 font-semibold hover:bg-accent hover:text-accent-fg transition-colors"
+            <ScrollLink
+              to="contact"
+              className="group inline-flex items-center gap-2 rounded-full bg-accent text-accent-fg px-7 py-3.5 font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-accent/25"
             >
-              Start a project
+              Get a quote
               <HiOutlineArrowRight className="transition-transform group-hover:translate-x-1" />
-            </a>
-            <a
-              href="#work"
+            </ScrollLink>
+            <ScrollLink
+              to="work"
               className="inline-flex items-center gap-2 rounded-full border border-base px-7 py-3.5 font-semibold hover:border-accent hover:text-accent transition-colors"
             >
-              See past work
-            </a>
+              See our work
+            </ScrollLink>
           </motion.div>
         </div>
 
