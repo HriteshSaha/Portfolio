@@ -1,22 +1,104 @@
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useRef, useState } from "react";
 import {
-  HiOutlineArrowUpRight,
-  HiOutlineChevronDown,
-  HiOutlineChevronLeft,
-  HiOutlineChevronRight,
-} from "react-icons/hi2";
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { A11y, Keyboard, Navigation, Pagination } from "swiper/modules";
+import { HiOutlineArrowUpRight, HiOutlineChevronDown } from "react-icons/hi2";
 import { caseStudies, type CaseStudy } from "../data/content";
 import MockupScreen from "./MockupScreen";
 
-function BrowserFrame({ study }: { study: CaseStudy }) {
-  const [active, setActive] = useState(0);
-  const images = study.images;
-  const image = images[active];
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-  const go = (dir: 1 | -1) => {
-    setActive((i) => (i + dir + images.length) % images.length);
+/**
+ * Magnetic "Visit live site" badge that floats over the slider image.
+ * Follows the cursor with a springy lag (magnetic pull) and snaps back
+ * when the cursor leaves. Hidden entirely when the study has no URL.
+ */
+function MagneticLiveLink({ study }: { study: CaseStudy }) {
+  if (!study.url) return null;
+  return <MagneticBadge url={study.url} name={study.name} />;
+}
+
+function MagneticBadge({ url, name }: { url: string; name: string }) {
+  const badgeRef = useRef<HTMLAnchorElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 260, damping: 24, mass: 0.5 });
+  const springY = useSpring(y, { stiffness: 260, damping: 24, mass: 0.5 });
+  const [hovering, setHovering] = useState(false);
+
+  const onMove = (e: React.MouseEvent) => {
+    const badge = badgeRef.current;
+    if (!badge) return;
+    // Pull is measured from the badge's own resting spot (its rect minus the
+    // offset we've already applied), so the badge stays anchored. The effect
+    // only plays when the cursor is within MAGNET_RADIUS of it — elsewhere on
+    // the image the badge holds its position.
+    const rect = badge.getBoundingClientRect();
+    const restX = rect.left + rect.width / 2 - x.get();
+    const restY = rect.top + rect.height / 2 - y.get();
+    const dx = e.clientX - restX;
+    const dy = e.clientY - restY;
+    const MAGNET_RADIUS = 150;
+    const MAX_PULL = 16;
+    if (Math.hypot(dx, dy) > MAGNET_RADIUS) {
+      x.set(0);
+      y.set(0);
+      return;
+    }
+    x.set(Math.max(-MAX_PULL, Math.min(MAX_PULL, dx * 0.25)));
+    y.set(Math.max(-MAX_PULL, Math.min(MAX_PULL, dy * 0.25)));
   };
+
+  const reset = () => {
+    x.set(0);
+    y.set(0);
+    setHovering(false);
+  };
+
+  return (
+    <div
+      onMouseMove={onMove}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={reset}
+      className="absolute inset-0 z-10 pointer-events-none"
+    >
+      <motion.a
+        ref={badgeRef}
+        href={url}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`Visit ${name} live site (opens in a new tab)`}
+        style={{ x: springX, y: springY }}
+        animate={{
+          opacity: hovering ? 1 : 0.85,
+          scale: hovering ? 1.05 : 1,
+        }}
+        whileTap={{ scale: 0.96 }}
+        transition={{ duration: 0.2 }}
+        className="group/link pointer-events-auto absolute bottom-14 left-4 inline-flex items-center gap-2 rounded-full bg-base/80 backdrop-blur-md border border-base px-4 py-2.5 font-semibold text-sm text-fg shadow-xl hover:border-accent hover:text-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+      >
+        Visit live site
+        <motion.span
+          aria-hidden
+          className="inline-block"
+          whileHover={{ x: 2, y: -2 }}
+        >
+          <HiOutlineArrowUpRight size={16} />
+        </motion.span>
+      </motion.a>
+    </div>
+  );
+}
+
+function ProjectSlider({ study }: { study: CaseStudy }) {
+  const images = study.images;
 
   return (
     <div className="relative">
@@ -34,69 +116,41 @@ function BrowserFrame({ study }: { study: CaseStudy }) {
           </div>
         </div>
 
-        <div className="relative aspect-[16/10] bg-soft overflow-hidden group/frame">
-          {image.kind === "screenshot" ? (
-            <motion.img
-              key={image.src}
-              src={image.src}
-              alt={`${study.name} — ${image.label}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              className="absolute inset-0 w-full h-full object-cover object-top"
-            />
-          ) : (
-            <motion.div
-              key={image.variant + image.label}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              className="absolute inset-0"
-            >
-              <MockupScreen variant={image.variant} />
-            </motion.div>
-          )}
-
-          {images.length > 1 && (
-            <>
-              <button
-                onClick={() => go(-1)}
-                aria-label="Previous screenshot"
-                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-elevated/90 border border-base grid place-items-center text-fg opacity-0 group-hover/frame:opacity-100 transition-opacity hover:border-accent hover:text-accent"
-              >
-                <HiOutlineChevronLeft size={16} />
-              </button>
-              <button
-                onClick={() => go(1)}
-                aria-label="Next screenshot"
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-elevated/90 border border-base grid place-items-center text-fg opacity-0 group-hover/frame:opacity-100 transition-opacity hover:border-accent hover:text-accent"
-              >
-                <HiOutlineChevronRight size={16} />
-              </button>
-            </>
-          )}
+        <div className="relative">
+          <Swiper
+            modules={[A11y, Keyboard, Navigation, Pagination]}
+            spaceBetween={0}
+            speed={450}
+            keyboard={{ enabled: true }}
+            pagination={{ clickable: true }}
+            navigation={true}
+            loop={images.length > 1}
+            className="project-swiper group/frame"
+          >
+            {images.map((image, i) => (
+              <SwiperSlide key={i} className="relative aspect-[16/10] bg-soft overflow-hidden">
+                {image.kind === "screenshot" ? (
+                  <img
+                    src={image.src}
+                    alt={`${study.name} — ${image.label}`}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover object-top"
+                  />
+                ) : (
+                  <div className="absolute inset-0">
+                    <MockupScreen variant={image.variant} />
+                  </div>
+                )}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <MagneticLiveLink study={study} />
         </div>
       </div>
 
-      {images.length > 1 && (
-        <div className="mt-4 flex items-center justify-center gap-2">
-          {images.map((img, i) => (
-            <button
-              key={i}
-              onClick={() => setActive(i)}
-              aria-label={img.label}
-              className="group/dot p-1.5"
-            >
-              <span
-                className={`block rounded-full transition-all ${
-                  active === i ? "w-6 h-1.5 bg-accent" : "w-1.5 h-1.5 bg-border group-hover/dot:bg-muted"
-                }`}
-              />
-            </button>
-          ))}
-        </div>
-      )}
-      <p className="mt-2 text-center font-mono text-xs text-muted">{image.label}</p>
+      <p className="mt-2 text-center font-mono text-xs text-muted">
+        {study.name} — {images.length > 1 ? `${images.length} screenshots` : "preview"}
+      </p>
     </div>
   );
 }
@@ -104,11 +158,11 @@ function BrowserFrame({ study }: { study: CaseStudy }) {
 function CaseStudyPanel({ study }: { study: CaseStudy }) {
   return (
     <div className="grid lg:grid-cols-[1fr_1.05fr] gap-14 items-start pt-10 pb-4">
-      <div className="lg:order-2">
-        <BrowserFrame study={study} />
+      <div className="lg:order-2 min-w-0">
+        <ProjectSlider study={study} />
       </div>
 
-      <div className="lg:order-1">
+      <div className="lg:order-1 min-w-0">
         <div className="space-y-5 mb-8">
           <div>
             <p className="font-mono text-xs uppercase tracking-wide text-muted mb-2">
@@ -125,10 +179,12 @@ function CaseStudyPanel({ study }: { study: CaseStudy }) {
         </div>
 
         <div className="flex flex-wrap gap-2 mb-8">
-          {study.tags.map((tag) => (
+          {study.tags.map((tag, i) => (
             <span
               key={tag}
-              className="font-mono text-xs px-3 py-1 rounded-full border border-base text-muted"
+              className={`font-mono text-xs px-3 py-1 rounded-full border ${
+                chipVariants[i % chipVariants.length]
+              }`}
             >
               {tag}
             </span>
@@ -140,7 +196,7 @@ function CaseStudyPanel({ study }: { study: CaseStudy }) {
             href={study.url}
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center gap-2 rounded-full bg-fg text-base px-6 py-3 font-semibold hover:bg-accent hover:text-accent-fg transition-colors"
+            className="group inline-flex items-center gap-2 rounded-full bg-accent text-accent-fg px-6 py-3 font-semibold hover:opacity-90 transition-opacity"
           >
             Visit live site
             <HiOutlineArrowUpRight className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -155,20 +211,28 @@ function CaseStudyPanel({ study }: { study: CaseStudy }) {
   );
 }
 
+// Rotating accent chip styles so tech tags don't all read as identical.
+const chipVariants = [
+  "border-accent/40 text-accent bg-accent/10",
+  "border-pop/40 text-pop bg-pop/10",
+  "border-base text-muted hover:border-accent/40 hover:text-accent transition-colors",
+];
+
 export default function Projects() {
-  const [openSlug, setOpenSlug] = useState(caseStudies[0].slug);
+  const [openSlug, setOpenSlug] = useState<string | null>(caseStudies[0].slug);
+
+  const toggle = (slug: string) => setOpenSlug((cur) => (cur === slug ? null : slug));
 
   return (
     <section id="work" className="py-28 border-t border-base">
       <div className="mx-auto max-w-6xl px-6">
         <div className="max-w-2xl mb-16">
-          <p className="font-mono text-sm text-accent mb-3">{"// "}Selected work</p>
+          <p className="font-mono text-sm text-accent mb-3">{"// "}Our work</p>
           <h2 className="font-display font-semibold text-4xl md:text-5xl tracking-tight">
             Recent projects.
           </h2>
           <p className="text-muted mt-4 text-lg">
-            GigmaPro is a real, live product. The rest are placeholders
-            swap in real case studies as they come in.
+            A few projects we've built. More case studies coming soon.
           </p>
         </div>
 
@@ -178,7 +242,8 @@ export default function Projects() {
             return (
               <div key={study.slug} className="border-b border-base">
                 <button
-                  onClick={() => setOpenSlug(study.slug)}
+                  onClick={() => toggle(study.slug)}
+                  aria-expanded={isOpen}
                   className="w-full flex items-center gap-6 py-7 text-left group"
                 >
                   <span className="font-mono text-sm text-muted shrink-0">{`0${i + 1}`}</span>

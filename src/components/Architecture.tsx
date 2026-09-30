@@ -7,13 +7,13 @@ export default function Architecture() {
     <section className="py-28 border-t border-base bg-soft">
       <div className="mx-auto max-w-4xl px-6">
         <div className="max-w-2xl mb-16">
-          <p className="font-mono text-sm text-accent mb-3">{"// "}Architecture</p>
+          <p className="font-mono text-sm text-accent mb-3">{"// "}How it works</p>
           <h2 className="font-display font-semibold text-4xl md:text-5xl tracking-tight">
-            How it's put together.
+            How it works.
           </h2>
           <p className="text-muted mt-4 text-lg">
-            The same layered architecture underneath every project sized up
-            or down to fit the product.
+            Every project is built in clear layers — so it's easier to
+            maintain, grow, and fix.
           </p>
         </div>
 

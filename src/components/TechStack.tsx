@@ -6,13 +6,13 @@ export default function TechStack() {
     <section id="stack" className="py-28 border-t border-base">
       <div className="mx-auto max-w-6xl px-6">
         <div className="max-w-2xl mb-16">
-          <p className="font-mono text-sm text-accent mb-3">{"// "}Stack</p>
+          <p className="font-mono text-sm text-accent mb-3">{"// "}Tools we use</p>
           <h2 className="font-display font-semibold text-4xl md:text-5xl tracking-tight">
-            Tools &amp; technologies.
+            Tools we use.
           </h2>
           <p className="text-muted mt-4 text-lg">
-            A modern, TypeScript-first stack for building and running real
-            products not just prototypes.
+            We use modern, reliable tools to build products that are ready for
+            real users — not just demos.
           </p>
         </div>
 

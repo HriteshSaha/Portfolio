@@ -15,6 +15,17 @@
   --color-mint-deep: #047857;
   --color-coral: #ff6b57;
   --color-coral-dim: #e5503c;
+
+  /* Theme aliases so Tailwind generates variant utilities (bg-accent/20,
+     border-pop/40, focus:ring-accent/30, ...) that follow light/dark. */
+  --color-base: var(--bg);
+  --color-soft: var(--bg-soft);
+  --color-elevated: var(--bg-elevated);
+  --color-fg: var(--fg);
+  --color-muted: var(--fg-muted);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-pop: var(--pop);
 }
 
 :root {
@@ -92,4 +103,110 @@ body {
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* ---- Placeholder colour for form inputs ---- */
+input::placeholder,
+textarea::placeholder {
+  color: var(--fg-muted);
+  opacity: 0.7;
+}
+
+/* ---- Swiper theme overrides (match site tokens) ---- */
+.project-swiper {
+  width: 100%;
+}
+
+.project-swiper .swiper-button-prev,
+.project-swiper .swiper-button-next {
+  z-index: 20; /* stay above the magnetic live-site link overlay */
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  /* Frosted-glass pill: translucent + blurred backdrop */
+  background-color: color-mix(in srgb, var(--bg-elevated) 55%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.22);
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease,
+    transform 0.2s ease, opacity 0.25s ease;
+  opacity: 0;
+}
+
+.project-swiper:hover .swiper-button-prev,
+.project-swiper:hover .swiper-button-next,
+.project-swiper:focus-within .swiper-button-prev,
+.project-swiper:focus-within .swiper-button-next {
+  opacity: 1;
+}
+
+.project-swiper .swiper-button-prev:hover,
+.project-swiper .swiper-button-next:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: color-mix(in srgb, var(--bg-elevated) 75%, transparent);
+  transform: scale(1.08);
+}
+
+.project-swiper .swiper-button-prev:active,
+.project-swiper .swiper-button-next:active {
+  transform: scale(0.96);
+}
+
+/* Hide Swiper 14's built-in inline SVG so only the CSS chevron shows. */
+.project-swiper .swiper-navigation-icon {
+  display: none;
+}
+
+/* Crisp CSS chevrons (no icon font / react-icons needed) — colour follows
+   currentColor so they adapt to hover + theme automatically. */
+.project-swiper .swiper-button-prev::after,
+.project-swiper .swiper-button-next::after {
+  content: "";
+  display: block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  border-radius: 1px;
+}
+
+.project-swiper .swiper-button-prev::after {
+  transform: rotate(-135deg);
+  margin-left: 0.16rem;
+}
+
+.project-swiper .swiper-button-next::after {
+  transform: rotate(45deg);
+  margin-right: 0.16rem;
+}
+
+/* Dots sit below the image, inside the browser frame, not overlaid. */
+.project-swiper .swiper-pagination {
+  position: static;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.8rem 0 0.9rem;
+  background: var(--bg-soft);
+  border-top: 1px solid var(--border);
+}
+
+.project-swiper .swiper-pagination-bullet {
+  width: 0.375rem;
+  height: 0.375rem;
+  background: var(--fg-muted);
+  opacity: 0.5;
+  transition: all 0.25s ease;
+}
+
+.project-swiper .swiper-pagination-bullet-active {
+  width: 1.5rem;
+  border-radius: 9999px;
+  background: var(--accent);
+  opacity: 1;
 }

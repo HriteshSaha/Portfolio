@@ -6,9 +6,9 @@ export default function Process() {
     <section id="process" className="py-28 border-t border-base">
       <div className="mx-auto max-w-6xl px-6">
         <div className="max-w-2xl mb-16">
-          <p className="font-mono text-sm text-accent mb-3">{"// "}Process</p>
+          <p className="font-mono text-sm text-accent mb-3">{"// "}How we work</p>
           <h2 className="font-display font-semibold text-4xl md:text-5xl tracking-tight">
-            Website → App → API → Database → Deploy.
+            From idea to launch.
           </h2>
         </div>
 
