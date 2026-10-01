@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { services } from "../data/content";
+import SplitHeading from "./SplitHeading";
+import TiltCard from "./TiltCard";
 
 // Rotating chip highlight variations so tag lists don't read as one flat row.
 const chipVariants = [
@@ -14,9 +16,10 @@ export default function Services() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="max-w-2xl mb-16">
           <p className="font-mono text-sm text-accent mb-3">{"// "}What we do</p>
-          <h2 className="font-display font-semibold text-4xl md:text-5xl tracking-tight">
-            Ways we can help you build.
-          </h2>
+          <SplitHeading
+            text="Ways we can help you build."
+            className="font-display font-semibold text-4xl md:text-5xl tracking-tight"
+          />
         </div>
 
         <div className="grid md:grid-cols-2 gap-px bg-base border border-base rounded-2xl overflow-hidden">
@@ -27,8 +30,9 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: (i % 2) * 0.08 }}
-              className="bg-base p-8 md:p-10 hover:bg-soft transition-colors"
+              className="bg-base"
             >
+              <TiltCard tilt={false} className="h-full rounded-2xl p-8 md:p-10 hover:bg-soft transition-colors">
               <span className="font-mono text-sm text-muted">{service.index}</span>
               <h3 className="font-display font-semibold text-2xl mt-3 mb-3">
                 {service.title}
@@ -46,6 +50,7 @@ export default function Services() {
                   </span>
                 ))}
               </div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

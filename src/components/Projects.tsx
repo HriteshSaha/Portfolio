@@ -10,6 +10,8 @@ import { A11y, Keyboard, Navigation, Pagination } from "swiper/modules";
 import { HiOutlineArrowUpRight, HiOutlineChevronDown } from "react-icons/hi2";
 import { caseStudies, type CaseStudy } from "../data/content";
 import MockupScreen from "./MockupScreen";
+import SplitHeading from "./SplitHeading";
+import TiltCard from "./TiltCard";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -134,10 +136,10 @@ function ProjectSlider({ study }: { study: CaseStudy }) {
                     src={image.src}
                     alt={`${study.name} — ${image.label}`}
                     loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover object-top"
+                    className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover/frame:scale-[1.04]"
                   />
                 ) : (
-                  <div className="absolute inset-0">
+                  <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover/frame:scale-[1.04]">
                     <MockupScreen variant={image.variant} />
                   </div>
                 )}
@@ -159,7 +161,9 @@ function CaseStudyPanel({ study }: { study: CaseStudy }) {
   return (
     <div className="grid lg:grid-cols-[1fr_1.05fr] gap-14 items-start pt-10 pb-4">
       <div className="lg:order-2 min-w-0">
-        <ProjectSlider study={study} />
+        <TiltCard tilt max={2.5} className="rounded-2xl">
+          <ProjectSlider study={study} />
+        </TiltCard>
       </div>
 
       <div className="lg:order-1 min-w-0">
@@ -228,9 +232,10 @@ export default function Projects() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="max-w-2xl mb-16">
           <p className="font-mono text-sm text-accent mb-3">{"// "}Our work</p>
-          <h2 className="font-display font-semibold text-4xl md:text-5xl tracking-tight">
-            Recent projects.
-          </h2>
+          <SplitHeading
+            text="Recent projects."
+            className="font-display font-semibold text-4xl md:text-5xl tracking-tight"
+          />
           <p className="text-muted mt-4 text-lg">
             A few projects we've built. More case studies coming soon.
           </p>
@@ -262,6 +267,10 @@ export default function Projects() {
                     </div>
                     <p className="text-muted mt-1">{study.tagline}</p>
                   </div>
+                  <span className="hidden sm:inline-flex shrink-0 items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-3.5 py-1.5 text-xs font-semibold text-accent opacity-0 -translate-x-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+                    {isOpen ? "Hide case study" : "View case study"}
+                    <HiOutlineArrowUpRight size={14} />
+                  </span>
                   <HiOutlineChevronDown
                     size={20}
                     className={`shrink-0 text-muted transition-transform duration-300 ${

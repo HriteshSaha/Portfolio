@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { HiOutlineArrowDown } from "react-icons/hi";
 import { architecture } from "../data/content";
+import SplitHeading from "./SplitHeading";
 
 export default function Architecture() {
   return (
@@ -8,9 +9,10 @@ export default function Architecture() {
       <div className="mx-auto max-w-4xl px-6">
         <div className="max-w-2xl mb-16">
           <p className="font-mono text-sm text-accent mb-3">{"// "}How it works</p>
-          <h2 className="font-display font-semibold text-4xl md:text-5xl tracking-tight">
-            How it works.
-          </h2>
+          <SplitHeading
+            text="How it works."
+            className="font-display font-semibold text-4xl md:text-5xl tracking-tight"
+          />
           <p className="text-muted mt-4 text-lg">
             Every project is built in clear layers — so it's easier to
             maintain, grow, and fix.

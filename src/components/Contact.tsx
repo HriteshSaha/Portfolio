@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { HiOutlineMail, HiOutlineArrowRight, HiOutlineCheckCircle, HiOutlineX } from "react-icons/hi";
 import { brand } from "../data/content";
+import SplitHeading from "./SplitHeading";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -81,9 +82,10 @@ export default function Contact() {
       <div className="mx-auto max-w-6xl px-6 grid lg:grid-cols-2 gap-16">
         <div>
           <p className="font-mono text-sm text-accent mb-3">{"// "}Contact us</p>
-          <h2 className="font-display font-semibold text-4xl md:text-5xl tracking-tight mb-6">
-            Have a project in mind?
-          </h2>
+          <SplitHeading
+            text="Have a project in mind?"
+            className="font-display font-semibold text-4xl md:text-5xl tracking-tight mb-6"
+          />
           <p className="text-muted text-lg max-w-md mb-10">
             Whether you need a new website, a full product build, or help
             connecting to an existing system, tell us what you're trying
